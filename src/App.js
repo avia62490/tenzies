@@ -1,12 +1,22 @@
 import './App.css';
+import Die from './Die.js'
 
 function App() {
     return (
-        <div className="App">
-            <main>
-
-            </main>
-        </div>
+        <main>
+            <container className="dice">
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+                <Die value="3" />
+            </container>
+        </main>
     );
 }
 
