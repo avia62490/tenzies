@@ -10,7 +10,11 @@ function App() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
             let rolledNumber = Math.ceil(Math.random() * 6)
-            newDice.unshift(rolledNumber)
+            newDice.push({
+                value: rolledNumber,
+                isHeld: true,
+                id: i + 1
+            })
         };
         return newDice
     }
@@ -19,7 +23,12 @@ function App() {
         setRolledDice(allNewDice)
     }
     
-    const diceArray = rolledDice.map(die => <Die value={die} />)
+    const diceArray = rolledDice.map(die => 
+        <Die 
+        key={die.id} 
+        value={die.value} 
+        isHeld={die.isHeld}
+    />)
 
     return (
         <main>
