@@ -3,7 +3,9 @@ import Die from './Die.js'
 import React from "react"
 
 function App() {
+    
     const [rolledDice, setRolledDice] = React.useState(allNewDice())
+    
     function allNewDice() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
@@ -11,14 +13,20 @@ function App() {
             newDice.unshift(rolledNumber)
         };
         return newDice
-      }
+    }
+
+    function rollDice() {
+        setRolledDice(allNewDice)
+    }
     
     const diceArray = rolledDice.map(die => <Die value={die} />)
+
     return (
         <main>
-            <container className="dice">
+            <div className="dice">
                 {diceArray}
-            </container>
+            </div>
+            <button onClick={rollDice} className='button'>Roll</button>
         </main>
     );
 }
