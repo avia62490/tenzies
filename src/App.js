@@ -9,9 +9,8 @@ function App() {
     function allNewDice() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
-            let rolledNumber = Math.ceil(Math.random() * 6)
             newDice.push({
-                value: rolledNumber,
+                value: Math.ceil(Math.random() * 6),
                 isHeld: false,
                 id: i + 1
             })
@@ -20,7 +19,11 @@ function App() {
     }
 
     function rollDice() {
-        setRolledDice(allNewDice)
+        setRolledDice(prevRolledDice => prevRolledDice.map(die => {
+            return die.isHeld ?
+                die :
+                {...die, value: Math.ceil(Math.random() * 6)}
+        }))
     }
 
     function holdDie(id) {
