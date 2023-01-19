@@ -1,6 +1,7 @@
 import './App.css';
 import Die from './Die.js'
 import React from "react"
+import Confetti from 'react-confetti';
 
 function App() {
     
@@ -20,11 +21,11 @@ function App() {
     }
 
     React.useEffect(() => {
-        const allEqual = arr => arr.every(v => v.value === arr[0].value)
-        const allHeld = arr => arr.every(v => v.isHeld === arr[0].isHeld)
-        allEqual(rolledDice) && allHeld(rolledDice) ?
-            console.log("YOU WIN!!") :
-            console.log("keep rolling")
+        const allEqual = rolledDice.every(die => die.value === rolledDice[0].value)
+        const allHeld = rolledDice.every(die => die.isHeld)
+        if (allEqual && allHeld) {
+            setTenzies(true)
+        }
     }, [rolledDice])
 
     function rollDice() {
@@ -53,12 +54,13 @@ function App() {
         
         return (
             <main>
+            {tenzies && <Confetti />}
             <h1 className="title">Tenzies</h1>
             <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
             <div className="dice">
                 {diceArray}
             </div>
-            <button onClick={rollDice} className='button'>Roll</button>
+            <button onClick={rollDice} className='button'>{tenzies ? "New Game" : "Roll"}</button>
         </main>
     );
 }
