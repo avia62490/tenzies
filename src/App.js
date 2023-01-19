@@ -29,11 +29,16 @@ function App() {
     }, [rolledDice])
 
     function rollDice() {
-        setRolledDice(prevRolledDice => prevRolledDice.map(die => {
-            return die.isHeld ?
-            die :
-            {...die, value: Math.ceil(Math.random() * 6)}
-        }))
+        if (tenzies) {
+            setRolledDice(allNewDice)
+            setTenzies(false)
+        } else {
+            setRolledDice(prevRolledDice => prevRolledDice.map(die => {
+                return die.isHeld ?
+                die :
+                {...die, value: Math.ceil(Math.random() * 6)}
+            }))
+        }
     }
     
     function holdDie(id) {
