@@ -2,7 +2,7 @@ import './App.css';
 import Die from './Die.js'
 import React from "react"
 import Confetti from 'react-confetti';
-// import StopWatch from './StopWatch'
+
 import Timer from "./Timer";
 
 function App() {
@@ -10,14 +10,13 @@ function App() {
     const [rolledDice, setRolledDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
     const [rollCount, setRollCount] = React.useState(0)
-    const [isActive, setIsActive] = React.useState(false);
-    const [isPaused, setIsPaused] = React.useState(true);
     const [time, setTime] = React.useState(0);
+    const [gameStart, setGameStart] = React.useState(false)
         
     React.useEffect(() => {
         let interval = null;
     
-        if (!tenzies) {
+        if (!tenzies && gameStart) {
         interval = setInterval(() => {
             setTime((time) => time + 10);
         }, 10);
@@ -27,7 +26,7 @@ function App() {
         return () => {
         clearInterval(interval);
         };
-    }, [tenzies]);
+    }, [tenzies, gameStart]);
         
     function allNewDice() {
         const newDice = []
@@ -54,7 +53,9 @@ function App() {
         if (tenzies) {
             setRolledDice(allNewDice)
             setTenzies(false)
+            setGameStart(false)
             setRollCount(0)
+            setTime(0)
         } else {
             setRolledDice(prevRolledDice => prevRolledDice.map(die => {
                 return die.isHeld ?
@@ -70,6 +71,7 @@ function App() {
             {...die, isHeld: !die.isHeld} :
             die
         }))
+        setGameStart(true)
     }
 
     
