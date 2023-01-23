@@ -2,13 +2,13 @@ import './App.css';
 import Die from './Die.js'
 import React from "react"
 import Confetti from 'react-confetti';
-import StopWatch from './StopWatch'
+// import StopWatch from './StopWatch'
 
 function App() {
     
     const [rolledDice, setRolledDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
-
+    const [rollCount, setRollCount] = React.useState(0)
     function allNewDice() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
@@ -30,9 +30,11 @@ function App() {
     }, [rolledDice])
 
     function rollDice() {
+        setRollCount(prevRollCount => prevRollCount + 1)
         if (tenzies) {
             setRolledDice(allNewDice)
             setTenzies(false)
+            setRollCount(0)
         } else {
             setRolledDice(prevRolledDice => prevRolledDice.map(die => {
                 return die.isHeld ?
@@ -67,7 +69,8 @@ function App() {
                 {diceArray}
             </div>
             <button onClick={rollDice} className='button'>{tenzies ? "New Game" : "Roll"}</button>
-            <StopWatch />
+            <h3>Number of rolls: {rollCount}</h3>
+            {/* <StopWatch active={!tenzies}/> */}
         </main>
     );
 }

@@ -3,25 +3,25 @@ import React, { useState } from "react";
 import Timer from "./Timer";
 import ControlButtons from "./ControlButtons";
 
-function StopWatch() {
-const [isActive, setIsActive] = useState(false);
+function StopWatch(props) {
+const [isActive, setIsActive] = useState(props.active);
 const [isPaused, setIsPaused] = useState(true);
 const [time, setTime] = useState(0);
 
 React.useEffect(() => {
 	let interval = null;
 
-	if (isActive && isPaused === false) {
+	if (isActive) {
 	interval = setInterval(() => {
 		setTime((time) => time + 10);
-	}, 100);
+	}, 10);
 	} else {
 	clearInterval(interval);
 	}
 	return () => {
 	clearInterval(interval);
 	};
-}, [isActive, isPaused]);
+}, [isActive]);
 
 const handleStart = () => {
 	setIsActive(true);
