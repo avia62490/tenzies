@@ -3,12 +3,32 @@ import Die from './Die.js'
 import React from "react"
 import Confetti from 'react-confetti';
 // import StopWatch from './StopWatch'
+import Timer from "./Timer";
 
 function App() {
     
     const [rolledDice, setRolledDice] = React.useState(allNewDice())
     const [tenzies, setTenzies] = React.useState(false)
     const [rollCount, setRollCount] = React.useState(0)
+    const [isActive, setIsActive] = React.useState(false);
+    const [isPaused, setIsPaused] = React.useState(true);
+    const [time, setTime] = React.useState(0);
+        
+    React.useEffect(() => {
+        let interval = null;
+    
+        if (!tenzies) {
+        interval = setInterval(() => {
+            setTime((time) => time + 10);
+        }, 10);
+        } else {
+        clearInterval(interval);
+        }
+        return () => {
+        clearInterval(interval);
+        };
+    }, [tenzies]);
+        
     function allNewDice() {
         const newDice = []
         for (let i = 0; i < 10; i++) {
@@ -51,6 +71,8 @@ function App() {
             die
         }))
     }
+
+    
     
     const diceArray = rolledDice.map(die => 
         <Die 
@@ -68,9 +90,13 @@ function App() {
             <div className="dice">
                 {diceArray}
             </div>
-            <button onClick={rollDice} className='button'>{tenzies ? "New Game" : "Roll"}</button>
-            <h3>Number of rolls: {rollCount}</h3>
-            {/* <StopWatch active={!tenzies}/> */}
+            <div className='stats'>
+                <div className="stop-watch">
+                    <Timer time={time} />
+                </div>
+                <button onClick={rollDice} className='button'>{tenzies ? "New Game" : "Roll"}</button>
+                <h3>Number of rolls: {rollCount}</h3>
+            </div>
         </main>
     );
 }

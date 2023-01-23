@@ -73,3 +73,10 @@ main {
   margin-left: 80px;
   margin-right: 80px;
 }
+
+.stats {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  
+}
