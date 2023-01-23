@@ -2,6 +2,7 @@ import './App.css';
 import Die from './Die.js'
 import React from "react"
 import Confetti from 'react-confetti';
+import StopWatch from './StopWatch'
 
 function App() {
     
@@ -66,6 +67,7 @@ function App() {
                 {diceArray}
             </div>
             <button onClick={rollDice} className='button'>{tenzies ? "New Game" : "Roll"}</button>
+            <StopWatch />
         </main>
     );
 }
