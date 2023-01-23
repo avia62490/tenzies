@@ -93,11 +93,11 @@ function App() {
                 {diceArray}
             </div>
             <div className='stats'>
-                <div className="stop-watch">
-                    <Timer time={time} />
-                </div>
+                <Timer time={time} />
                 <button onClick={rollDice} className='button'>{tenzies ? "New Game" : "Roll"}</button>
-                <h3>Number of rolls: {rollCount}</h3>
+                <div className='rollCounter'>
+                <p>Rolls: <b>{rollCount}</b></p>
+                </div>
             </div>
         </main>
     );
